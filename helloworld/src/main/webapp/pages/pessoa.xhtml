@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta charset="UTF-8"/>
+	<title>Pessoa</title>
+</h:head>
+<h:body>
+	<h1>Novo</h1>
+	<h:form id="formCliente">
+		<fieldset>
+			<legend>Dados do Cliente</legend>
+			<h:panelGroup columns="2">
+				<h:outputLabel value="Nome: " for="nome" />
+				<h:inputText id="nome" value="#{pessoaBean.pessoa.nome}" />
+
+				<h:outputLabel value="Profissao: " for="profissao" />
+				<h:inputText id="profissao" value="#{pessoaBean.pessoa.profissao}" />
+
+				<h:outputLabel value="Telefone: " for="telefone" />
+				<h:inputText id="telefone" value="#{pessoaBean.pessoa.telefone}" />
+
+				<h:outputLabel value="Celular: " for="celular" />
+				<h:inputText id="celular" value="#{pessoaBean.pessoa.celular}" />
+
+				<h:outputLabel value="E-mail: " for="email" />
+				<h:inputText id="email" value="#{pessoaBean.pessoa.email}" />
+			</h:panelGroup>
+		</fieldset>
+
+		<fieldset>
+			<legend>Dados do Endereço</legend>
+			<h:panelGroup columns="2">
+				<h:outputLabel value="Logradouro" for="logradouro" />
+				<h:inputText id="logradouro"
+					value="#{pessoaBean.pessoa.endereco.logradouro}" />
+
+				<h:outputLabel value="Numero Residencia" for="numeroResidencia" />
+				<h:inputText id="numeroResidencia"
+					value="#{pessoaBean.pessoa.endereco.numero}" />
+
+				<h:outputLabel value="Bairro: " for="bairro" />
+				<h:inputText id="bairro"
+					value="#{pessoaBean.pessoa.endereco.bairro}" />
+
+				<h:outputLabel value="Selecione o Estado:" for="estado" />
+				<h:selectOneMenu id="estado" value="#{pessoaBean.estadoSelecionado}">
+					<f:selectItem itemLabel="-- Estado --" noSelectionOption="true" />
+					<f:selectItems value="#{pessoaBean.estados}" var="estado"
+						itemLabel="#{estado.nome}" itemValue="#{estado.uf}" />
+					<f:ajax execute="@this" render="cidade" event="change"
+						listener="#{pessoaBean.obterCidadesPorEstadoSelecionado()}" />
+				</h:selectOneMenu>
+
+				<h:outputLabel value="Selecione a cidade:" for="cidade" />
+				<h:selectOneMenu id="cidade" value="#{pessoaBean.cidadeSelecionada}">
+					<f:selectItem itemLabel="-- Cidade --" noSelectionOption="true" />
+					<f:selectItems value="#{pessoaBean.cidades}" var="cidade"
+						itemLabel="#{cidade.nome}" itemValue="#{cidade.id}" />
+				</h:selectOneMenu>
+
+			</h:panelGroup>
+		</fieldset>
+	</h:form>
+</h:body>
+</html>
